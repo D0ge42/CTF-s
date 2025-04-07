@@ -2,6 +2,7 @@
 
 # Importa la libreria di pwntools
 from pwn import *
+context.log_level = "debug"
 
 def main():
     '''
@@ -11,50 +12,41 @@ def main():
     HOST = "software-17.challs.olicyber.it"
     PORT = 13000
     r = remote(HOST, PORT)
-
+    # Send some data to start the challenge
     r.sendlineafter(b".. Invia un qualsiasi carattere per iniziare ...",b"a")
-
-    
+    # While loops that cycle different list of numbers
     while(1):
-        bytes_list = build_num_list(r)
-        print("Bytes_list = ", bytes_list)
-        # We initialize res 
-        res:int = 0
-
-        # Cycle each element in bytes_list 
-        for byte in bytes_list:
-            num = int(byte.decode('utf8'))
-            res = res + num
-
-        res_byte = str(res).encode('utf8')
-        r.sendlineafter(b"Somma?",res_byte)
-
-        data2 = r.recvuntil(b"Somma?")
-        print("DATA2 = ", data2, "END")
-        r.interactive()
-
+        solve_first(r)
+    # Let us communicate with the shell
+    r.interactive()
     r.close()
 
-def build_num_list(r:remote)-> list[bytes]:
+def solve_first(r:remote)-> int:
     '''
-    function to return a list of bytes
+    function to solve first set of nums
     '''
-    #Catch the line ending with ]
-    # nums = r.recvline_endswith(b"]")
-    nums = r.recvuntil(b"Somma?")
-    print("NUMS = ", nums, "END")
-    #Find index of both [ and ] (extremities of array) 
-    index_start= nums.find(b"[",0,4000)
-    print("INDEX START = ", index_start)
-    index_end = nums.find(b"]",0,4000)
-    print("INDEX END = ", index_end)
 
+    #Recv to parse the received data 
+    nums = r.recvuntil(b"somma questi numeri\n")
+    nums = r.recvuntil(b"[")
+    nums = r.recvuntil(b"]")[:-1]
+    # print(f"nums = {nums}")
     # Split the list eachtime we've a comma and space
-    cutnum = nums[index_start + 1:index_end]
-    bytes_list = cutnum.split(b", ")
+    bytes_list = nums.split(b", ")
+    res:int = 0
 
+    # Cycle each element in bytes_list and translate each byte into an int. 
+    for byte in bytes_list:
+        num = int(byte.decode('utf8'))
+        res = res + num
+
+    # Cast to string from int
+    res_byte = str(res).encode('utf8')
+    # print("RES = ",res_byte, "END\n")
+    # Send result to SHELL
+    r.sendline(res_byte)
     # Return bytes_list
-    return bytes_list
+    return 1
 
 if __name__ == "__main__":
     main()

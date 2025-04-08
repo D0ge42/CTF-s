@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
-# Importa la libreria di pwntools
+# This ctf is mainly focussed on discovering how pwntools library works.
+# List of integers will be given troughout the software execution.
+# Your goal is to sum them and send back the result.
+# 10 Sums of numbers in 10 seconds.
+
 from pwn import *
 context.log_level = "debug"
 

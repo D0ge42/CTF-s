@@ -21,8 +21,6 @@ def main():
     # While loops that cycle different list of numbers
     while(1):
         solve_first(r)
-    # Let us communicate with the shell
-    r.interactive()
     r.close()
 
 def solve_first(r:remote)-> int:

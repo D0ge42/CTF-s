@@ -28,7 +28,6 @@ def main():
         if bytes_type == b"64-bit":
             pack = p64(packed_int)                  # Pack the integer as a 64 bit packet.
         r.send(pack)                                # Send package.
-    r.interactive()
     r.close()
 
 def extract_type(r:remote) -> bytes:

@@ -7,7 +7,6 @@
 # For example a HEAD request can read the content lenght to check the file size before downloading the file
 # with GET.
 
-
 import requests
 
 def main():
@@ -17,3 +16,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

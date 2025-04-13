@@ -1,4 +1,16 @@
-# ctf-s
+# 🕵️‍♂️ CTF Repository
 
-A collection of Capture The Flag (CTF) challenges and writeups focused on binary exploitation using [Pwntools](https://docs.pwntools.com/en/stable/).  
-This repository is meant to document my progress and learning.
+Welcome to my Capture The Flag (CTF) repository! This is a personal space to document, share, and develop solutions for various CTF challenges I've tackled.  
+Currently focused on:
+
+- 🌐 Web Security
+- 🐚 Pwntools / Binary Exploitation
+
+---
+
+## 📁 Structure
+
+```bash
+.
+├── websecurity/       # Web-related challenges (XSS, SQLi, SSRF, etc.)
+└── pwntools/          # Binary exploitation scripts using Pwntools

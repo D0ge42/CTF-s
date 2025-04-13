@@ -8,5 +8,6 @@ import requests
 def main():
     flag = requests.get("http://web-01.challs.olicyber.it/")
     print(flag.text)
+
 if __name__ == "__main__":
     main()
